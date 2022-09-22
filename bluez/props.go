@@ -72,6 +72,7 @@ func WatchProperties(wprop WatchableClient) (chan *PropertyChanged, error) {
 						// map[*]variant -> map[*]interface{}
 						ok, err := util.AssignMapVariantToInterface(f, x)
 						if err != nil {
+							wprop.ToProps().Unlock()
 							log.Errorf("Failed to set %s: %s", f.String(), err)
 							continue
 						}
